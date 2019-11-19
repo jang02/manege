@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
         <label for="schofthoogte">Schofthoogte</label>
-        <input name="schofthoogte" class="form-control" id="schofthoogte" value="<?php if (isset($_POST["schofthoogte"])){echo $_POST["schofthoogte"];} ?>">
+        <input  name="schofthoogte" class="form-control" id="schofthoogte" value="<?php if (isset($_POST["schofthoogte"])){echo $_POST["schofthoogte"];} ?>">
     </div>
     <input class="btn btn-primary" type="submit">
 </form>
