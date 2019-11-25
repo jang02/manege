@@ -80,5 +80,26 @@ function deleteHorse($id){
     header("Location: /manege/horse/index");
 }
 
+function updateHorse($id, $type, $name, $ras, $schofthoogte){
+    try {
+        $conn=openDatabaseConnection();
+
+        $stmt = $conn->prepare("UPDATE `horses` SET `type`=:type, `HorseName`=:name, `ras`=:ras, `schofthoogte`=:schofthoogte WHERE `HorseID`=:id");
+        $stmt->bindParam(":type", $type);
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":ras", $ras);
+        $stmt->bindParam(":schofthoogte", $schofthoogte);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+
+    }
+    catch(PDOException $e){
+
+        echo "Connection failed: " . $e->getMessage();
+    }
+
+    $conn = null;
+}
+
 
 ?>
