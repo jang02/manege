@@ -42,3 +42,6 @@ a{
 #alerts, .alert{
     display: block;
 }
+.hidden{
+    display: none;
+}
