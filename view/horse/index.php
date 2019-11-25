@@ -12,7 +12,7 @@
     foreach ($data["horse"] as $horse) {
 
         echo '<tr><td>'.$horse["HorseID"].'</td><td>'.$horse["type"].'</td><td>'.$horse["HorseName"].'</td>
-<td>'.$horse["ras"].'</td><td>'.$horse["schofthoogte"].'</td><td><a href="edit'.$horse["HorseID"].'"><i class="fas fa-pen"></i></a> <a href="delete/'.$horse["HorseID"].'"><i class="fas fa-trash"></i></a></td></tr>';
+<td>'.$horse["ras"].'</td><td>'.$horse["schofthoogte"].'</td><td><a href="edit/'.$horse["HorseID"].'"><i class="fas fa-pen"></i></a> <a href="delete/'.$horse["HorseID"].'"><i class="fas fa-trash"></i></a></td></tr>';
 
 
 
