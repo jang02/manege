@@ -12,6 +12,27 @@ function getAllHorses(){
     return $query->fetchAll();
 }
 
+function getHorse($id){
+    try {
+        $conn=openDatabaseConnection();
+
+        $stmt = $conn->prepare("SELECT * FROM `horses` WHERE HorseID = :id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+
+    }
+    catch(PDOException $e){
+
+        echo "Connection failed: " . $e->getMessage();
+    }
+
+    $conn = null;
+
+    return $stmt->fetch();
+
+
+}
+
 function ValidateData($data){
     $data = trim($data);
     $data = stripslashes($data);
@@ -38,6 +59,25 @@ function createHorse($type, $name, $ras, $schofthoogte){
 
     $conn = null;
 
+}
+
+function deleteHorse($id){
+    $data = getHorse($id);
+    $_SESSION["success"][] = "Successvol een $data[type] met de naam $data[HorseName] verwijderd!";
+    try {
+        $conn=openDatabaseConnection();
+
+        $stmt = $conn->prepare("DELETE FROM `horses` WHERE HorseID = :id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+
+    }
+    catch(PDOException $e){
+
+        echo "Connection failed: " . $e->getMessage();
+    }
+    $conn = null;
+    header("Location: /manege/horse/index");
 }
 
 

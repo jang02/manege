@@ -14,8 +14,11 @@ function create()
 function edit(){
     render("horse/edit");
 }
-function delete(){
-    render("horse/delete");
+function delete($id){
+
+    $horse = getHorse($id);
+
+    render("horse/delete", $horse);
 }
 function store(){
     $type = $name = $ras = $schofthoogte = "";
@@ -23,7 +26,6 @@ function store(){
     $name = ValidateData($_POST["name"]);
     $ras = ValidateData($_POST["ras"]);
     $schofthoogte = ValidateData($_POST["schofthoogte"]);
-
 
     if ($type == "" || $name == "" || $ras == "" || tofloat($schofthoogte) <= 0 || tofloat($schofthoogte) > 3){
         if($name == ""){
@@ -35,16 +37,21 @@ function store(){
         if($schofthoogte == ""){
             $_SESSION["error"][] = "Vul een schofthoogte in";
         }
-        if(tofloat($schofthoogte) <= 0 || tofloat($schofthoogte) > 3){
+        else if(tofloat($schofthoogte) <= 0 || tofloat($schofthoogte) > 3){
             $_SESSION["error"][] = "Schofthoogte moet groter dan 0 en kleiner of gelijk aan 3 zijn";
         }
-        render("horse/create");
+        $_SESSION["olddata"] = $_POST;
+        header("Location: create");
     }
     else{
         createHorse($type, $name, $ras, $schofthoogte);
         $_SESSION["success"][] = "Successvol een $type met de naam $name Toegevoegd!";
         header("Location: index");
     }
+
+}
+function destroy($id){
+    deleteHorse($id);
 
 }
 
