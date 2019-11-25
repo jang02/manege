@@ -45,7 +45,7 @@ function store(){
     }
     else{
         createRider($name, $adress, $phonenumber);
-        $_SESSION["success"][] = "Successvol een rijder met de naam $phonenumber Toegevoegd!";
+        $_SESSION["success"][] = "Successvol een rijder met de naam $name Toegevoegd!";
         header("Location: index");
     }
 
