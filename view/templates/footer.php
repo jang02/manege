@@ -1,3 +1,11 @@
+<?php
+
+if (isset($_SESSION["olddata"])){
+    unset($_SESSION["olddata"]);
+}
+
+?>
+
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
