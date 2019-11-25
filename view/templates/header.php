@@ -20,8 +20,6 @@
                     <div class="dropdown-content">
                         <a href="<?= URL ?>horse/index">Paarden</a>
                         <a href="<?= URL ?>horse/create">Aanmaken</a>
-                        <a href="<?= URL ?>horse/edit">Aanpassen</a>
-                        <a href="<?= URL ?>horse/delete">Verwijderen</a>
                     </div>
                 </div>
             </li>
@@ -31,8 +29,6 @@
                     <div class="dropdown-content">
                         <a href="<?= URL ?>rider/index">Rijders</a>
                         <a href="<?= URL ?>rider/create">Aanmaken</a>
-                        <a href="<?= URL ?>rider/edit">Aanpassen</a>
-                        <a href="<?= URL ?>rider/delete">Verwijderen</a>
                     </div>
                 </div>
             </li>
