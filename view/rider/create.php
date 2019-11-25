@@ -1,25 +1,17 @@
-<div class="container">
-    <table border="1">
-        <tr>
-            <th>#</th>
-            <th>Naam</th>
-        </tr>
+<h1>Paard aanmaken</h1>
 
-
-        <tr>
-            <td>99041392</td>
-            <td>Johan ter Wolde</td>
-        </tr>
-        <tr>
-            <td>99041393</td>
-            <td>Johan Vlemmix</td>
-        </tr>
-        <tr>
-            <td>99041394</td>
-            <td>Ben Vreemdeling</td>
-        </tr>
-
-
-
-    </table>
-</div>
+<form action="<?= URL ?>rider/store" method="post">
+    <div class="form-group">
+        <label for="name">Naam</label>
+        <input name="name" class="form-control" id="name" value="<?php if (isset($_SESSION["olddata"]["name"])){echo $_SESSION["olddata"]["name"];} ?>">
+    </div>
+    <div class="form-group">
+        <label for="adress">Adres</label>
+        <input name="adress" class="form-control" id="adress" value="<?php if (isset($_SESSION["olddata"]["adress"])){echo $_SESSION["olddata"]["adress"];} ?>">
+    </div>
+    <div class="form-group">
+        <label for="phonenumber">Telefoon nummer</label>
+        <input  name="phonenumber" class="form-control" id="phonenumber" value="<?php if (isset($_SESSION["olddata"]["phonenumber"])){echo $_SESSION["olddata"]["phonenumber"];} ?>">
+    </div>
+    <input class="btn btn-primary" type="submit">
+</form>
