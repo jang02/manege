@@ -1,25 +1,53 @@
-<div class="container">
-    <table border="1">
-        <tr>
-            <th>#</th>
-            <th>Naam</th>
-        </tr>
+<h1>Inplannen</h1>
 
+<form action="<?= URL ?>home/store" method="post">
+    <div class="form-group">
+        <label for="rider">Rijder</label>
+        <select name="rider" class="form-control" id="rider">
+            <?php
+            foreach ($data["rider"] as $rider) {
+                ?>
 
-        <tr>
-            <td>99041392</td>
-            <td>Johan ter Wolde</td>
-        </tr>
-        <tr>
-            <td>99041393</td>
-            <td>Johan Vlemmix</td>
-        </tr>
-        <tr>
-            <td>99041394</td>
-            <td>Ben Vreemdeling</td>
-        </tr>
+                <option <?php if (isset($_SESSION["olddata"]["rider"])) {
+                    if ($_SESSION["olddata"]["rider"] == $rider["RiderName"]) {
+                        echo 'selected="selected"';
+                    }
+                } ?>><?php echo $rider["RiderName"] ?></option>;
 
+                <?php
+            }
+            ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="horse">Naam Paard/Pony</label>
+        <select name="horse" class="form-control" id="horse">
+            <?php
+            foreach ($data["horse"] as $horse) {
+                ?>
 
+                <option <?php if (isset($_SESSION["olddata"]["horse"])) {
+                    if ($_SESSION["olddata"]["horse"] == $horse["HorseName"]) {
+                        echo 'selected="selected"';
+                    }
+                } ?>><?php echo ($horse["HorseName"]) ?></option>;
 
-    </table>
-</div>
+                <?php
+            }
+            ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="start">Start tijd</label>
+        <input  name="start" class="form-control" id="start" value="<?php if (isset($_SESSION["olddata"]["start"])) {
+            echo $_SESSION["olddata"]["start"];
+        } ?>">
+    </div>
+    <div class="form-group">
+        <label for="end">Eind tijd</label>
+        <input  name="end" class="form-control" id="end" value="<?php if (isset($_SESSION["olddata"]["end"])) {
+            echo $_SESSION["olddata"]["end"];
+        } ?>">
+    </div>
+    <input class="btn btn-primary" type="submit">
+</form>

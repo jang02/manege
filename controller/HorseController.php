@@ -22,7 +22,6 @@ function delete($id){
     render("horse/delete", $horse);
 }
 function store(){
-    $type = $name = $ras = $schofthoogte = "";
     $type = ValidateData($_POST["type"]);
     $name = ValidateData($_POST["name"]);
     $ras = ValidateData($_POST["ras"]);
