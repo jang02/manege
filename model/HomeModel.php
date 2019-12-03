@@ -113,12 +113,24 @@ function getTimes($id, $option){
     }
 }
 
-function compareTime($time1, $time2, $time3){
-
-    if(strtotime($time2)<strtotime($time1) && strtotime($time1)<strtotime($time3)) {
+function compareTime($time1, $time2, $time3, $time4, $type){
+    if(strtotime($time1) < strtotime($time2) && strtotime($time3) < strtotime($time4)){
         return true;
-    } else {
-        return false;
+    }
+    else{
+        if ($type === "start") {
+            if (strtotime($time1) >= strtotime($time2) && strtotime($time1) < strtotime($time3)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (strtotime($time4) > strtotime($time2) && strtotime($time4) <= strtotime($time3)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
 

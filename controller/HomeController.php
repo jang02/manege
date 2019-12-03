@@ -30,7 +30,7 @@ function store(){
     $timeshorse = getTimes($idhorse["HorseID"], "horse");
 
     foreach(getTimes($idrider["RiderID"], "rider") as $timesrider){
-        if (compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"]) == false && compareTime($endtime, $timesrider["start_time"], $timesrider["end_time"]) == false){
+        if (compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"], $endtime, "start") == false && compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"], $endtime, "end") == false){
             echo("can continue</br>");
         }
         else{
@@ -38,7 +38,7 @@ function store(){
         }
     }
     foreach(getTimes($idhorse["HorseID"], "horse") as $timeshorse){
-        if (compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"]) == false && compareTime($endtime, $timeshorse["start_time"], $timeshorse["end_time"]) == false){
+        if (compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"], $endtime, "start") == false && compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"], $endtime, "end") == false){
             echo("can continue</br>");
         }
         else{
