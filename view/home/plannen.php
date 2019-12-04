@@ -39,13 +39,13 @@
     </div>
     <div class="form-group">
         <label for="start">Start tijd</label>
-        <input  name="start" class="form-control" id="start" value="<?php if (isset($_SESSION["olddata"]["start"])) {
+        <input type="time" name="start" class="form-control" id="start" value="<?php if (isset($_SESSION["olddata"]["start"])) {
             echo $_SESSION["olddata"]["start"];
         } ?>">
     </div>
     <div class="form-group">
         <label for="end">Eind tijd</label>
-        <input  name="end" class="form-control" id="end" value="<?php if (isset($_SESSION["olddata"]["end"])) {
+        <input type="time" name="end" class="form-control" id="end" value="<?php if (isset($_SESSION["olddata"]["end"])) {
             echo $_SESSION["olddata"]["end"];
         } ?>">
     </div>
