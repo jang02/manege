@@ -3,7 +3,7 @@
 function getAllPlanned(){
     $db = openDatabaseConnection();
 
-    $sql = "SELECT id, start_time, end_time, RiderName, HorseName 
+    $sql = "SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, RiderName, HorseName 
 FROM planning 
   INNER JOIN riders on RiderID = Rider_id 
   INNER JOIN horses on HorseID = Horse_id 
@@ -74,13 +74,14 @@ function getIDhorse($name){
 
     return $stmt->fetch();
 }
-function getTimes($id, $option){
+function getTimes($id, $entryid, $option){
     if($option === "rider"){
         try {
             $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("SELECT `start_time`,`end_time` FROM `planning` WHERE Rider_id = :id");
+            $stmt = $conn->prepare("SELECT `start_time`,`end_time` FROM `planning` WHERE Rider_id = :id AND WHERE NOT id = :entryid");
             $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":entryid", $entryid);
             $stmt->execute();
 
         }
@@ -97,8 +98,9 @@ function getTimes($id, $option){
         try {
             $conn=openDatabaseConnection();
 
-            $stmt = $conn->prepare("SELECT `start_time`,`end_time` FROM `planning` WHERE Horse_id = :id");
+            $stmt = $conn->prepare("SELECT `start_time`,`end_time` FROM `planning` WHERE Horse_id = :id AND WHERE NOT id = :entryid");
             $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":entryid", $entryid);
             $stmt->execute();
 
         }
@@ -132,6 +134,77 @@ function compareTime($time1, $time2, $time3, $time4, $type){
             }
         }
     }
+}
+function entry($id){
+    $conn = openDatabaseConnection();
+
+    $stmt = $conn->prepare("SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, RiderName, HorseName 
+FROM planning 
+  INNER JOIN riders on RiderID = Rider_id 
+  INNER JOIN horses on HorseID = Horse_id 
+WHERE id = :id");
+    $stmt->bindParam(":id", $id);
+    $stmt->execute();
+    return $stmt->fetch();
+    $conn = null;
+}
+
+function createEntry($rider, $horse, $start, $end){
+    try {
+        $conn=openDatabaseConnection();
+
+        $stmt = $conn->prepare("INSERT INTO `planning` (id, start_time, end_time, Horse_id, Rider_id) VALUES (NULL, :start, :end, :horse, :rider)");
+        $stmt->bindParam(":start", $start);
+        $stmt->bindParam(":end", $end);
+        $stmt->bindParam(":horse", $horse);
+        $stmt->bindParam(":rider", $rider);
+        $stmt->execute();
+
+    }
+    catch(PDOException $e){
+
+        echo "Connection failed: " . $e->getMessage();
+    }
+
+    $conn = null;
+}
+function updateEntry($rider, $horse, $start, $end, $id){
+    try {
+        $conn=openDatabaseConnection();
+
+        $stmt = $conn->prepare("UPDATE planning SET `start_time`=:start, `end_time`=:end, `Horse_id`=:horseid, `Rider_id`=:riderid WHERE `id`=:id");
+        $stmt->bindParam(":start", $start);
+        $stmt->bindParam(":end", $end);
+        $stmt->bindParam(":horseid", $horse);
+        $stmt->bindParam(":riderid", $rider);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+
+    }
+    catch(PDOException $e){
+
+        echo "Connection failed: " . $e->getMessage();
+    }
+
+    $conn = null;
+}
+function deleteEntry($id){
+    try {
+        $conn=openDatabaseConnection();
+
+        $stmt = $conn->prepare("DELETE FROM `planning` WHERE id = :id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+
+
+    }
+    catch(PDOException $e){
+
+        $_SESSION["error"][] = "Kon niet verwijderen uit de database, contact admin";
+    }
+    $conn = null;
+    $_SESSION["success"][] = "Successvol verwijdered uit de database!";
+    header("Location: /manege/home/index");
 }
 
 
