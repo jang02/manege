@@ -74,7 +74,44 @@ function getIDhorse($name){
 
     return $stmt->fetch();
 }
-function getTimes($id, $entryid, $option){
+function getTimes($id, $option){
+    if($option === "rider"){
+        try {
+            $conn=openDatabaseConnection();
+
+            $stmt = $conn->prepare("SELECT `start_time`,`end_time` FROM `planning` WHERE Rider_id = :id");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+
+        }
+        catch(PDOException $e){
+
+            echo "Connection failed: " . $e->getMessage();
+        }
+
+        $conn = null;
+
+        return $stmt->fetchAll();
+    }
+    else{
+        try {
+            $conn=openDatabaseConnection();
+
+            $stmt = $conn->prepare("SELECT `start_time`,`end_time` FROM `planning` WHERE Horse_id = :id");
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+
+        }
+        catch(PDOException $e){
+
+            echo "Connection failed: " . $e->getMessage();
+        }
+
+        $conn = null;
+
+        return $stmt->fetchAll();
+    }
+}function getTimesupdate($id, $entryid, $option){
     if($option === "rider"){
         try {
             $conn=openDatabaseConnection();
@@ -114,6 +151,7 @@ function getTimes($id, $entryid, $option){
         return $stmt->fetchAll();
     }
 }
+
 
 function compareTime($time1, $time2, $time3, $time4, $type){
     if(strtotime($time1) < strtotime($time2) && strtotime($time3) < strtotime($time4)){
@@ -200,7 +238,7 @@ function deleteEntry($id){
     }
     catch(PDOException $e){
 
-        $_SESSION["error"][] = "Kon niet verwijderen uit de database, contact admin";
+        $_SESSION["error"][] = "Kon niet verwijderen uit de database, contact een admin";
     }
     $conn = null;
     $_SESSION["success"][] = "Successvol verwijdered uit de database!";

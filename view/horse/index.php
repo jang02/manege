@@ -1,5 +1,5 @@
 <h1>Paarden</h1>
-<table>
+<table class="table">
     <tr>
         <th>ID</th>
         <th>Type</th>

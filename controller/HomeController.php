@@ -91,7 +91,7 @@ function updatestore()
         } else {
             // start is eerder dan eindtijd
 
-            foreach (getTimes($idrider["RiderID"], $entryid, "rider") as $timesrider) {
+            foreach (getTimesupdate($idrider["RiderID"], $entryid, "rider") as $timesrider) {
                 if (compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"], $endtime, "start") == false && compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"], $endtime, "end") == false) {
                     array_push($checker, true);
                 } else {
@@ -99,7 +99,7 @@ function updatestore()
                     array_push($checker, false);
                 }
             }
-            foreach (getTimes($idhorse["HorseID"], $entryid, "horse") as $timeshorse) {
+            foreach (getTimesupdate($idhorse["HorseID"], $entryid, "horse") as $timeshorse) {
                 if (compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"], $endtime, "start") == false && compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"], $endtime, "end") == false) {
                     array_push($checker, true);
                 } else {
@@ -111,6 +111,7 @@ function updatestore()
                 header("Location: edit/". $entryid ."");
             } else {
                 updateEntry($idrider["RiderID"], $idhorse["HorseID"], $starttime, $endtime, $entryid);
+                $_SESSION["success"][] = "Successfully added a new entry";
                 header("Location: /manege/home/index");
             }
 

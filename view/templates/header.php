@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="container">
-    <nav>
+    <nav class="navbar navbar-inverse">
         <ul>
             <li><a href="<?= URL ?>home/index">Home</a></li>
             <li><a href="<?= URL ?>home/plannen">Inplannen</a></li>

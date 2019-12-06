@@ -1,4 +1,4 @@
-<h1>Paard aanmaken</h1>
+<h1>Rijder aanmaken</h1>
 
 <form action="<?= URL ?>rider/store" method="post">
     <div class="form-group">

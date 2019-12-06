@@ -1,11 +1,11 @@
 <h1>Planning</h1>
-<table>
+<table class="table">
     <tr>
-        <th>Naam rijder</th>
-        <th>Naam dier</th>
-        <th>Start tijd</th>
-        <th>Eind tijd</th>
-        <th>Planning ID</th>
+        <th scope="col">Naam rijder</th>
+        <th scope="col">Naam dier</th>
+        <th scope="col">Start tijd</th>
+        <th scope="col">Eind tijd</th>
+        <th scope="col">Planning ID</th>
     </tr>
     <?php
     foreach ($data["planned"] as $planned) {

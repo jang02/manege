@@ -1,5 +1,5 @@
 <h1>U gaat het volgende verwijderen</h1>
-<table>
+<table class="table">
     <tr>
         <th>Naam rijder</th>
         <th>Naam dier</th>
