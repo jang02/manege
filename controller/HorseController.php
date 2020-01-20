@@ -11,6 +11,14 @@ function create()
 {
     render("horse/create");
 }
+function availability(){
+    $planned = getAllPlanned();
+
+    render("horse/availability", array(
+        'horse' => $planned
+    ));
+
+}
 function edit($id){
     $horse = getHorse($id);
     render("horse/edit", $horse);

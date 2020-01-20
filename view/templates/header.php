@@ -20,6 +20,7 @@
                     <div class="dropdown-content">
                         <a href="<?= URL ?>horse/index">Paarden</a>
                         <a href="<?= URL ?>horse/create">Aanmaken</a>
+                        <a href="<?= URL ?>horse/availability">Beschikbaarheid</a>
                     </div>
                 </div>
             </li>

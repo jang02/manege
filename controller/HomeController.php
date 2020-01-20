@@ -1,22 +1,22 @@
 <?php
 
-require(ROOT . "model/HomeModel.php");
+require(ROOT . "model/AndreklussenModel.php");
 
 // http://localhost/manege/home/index
 function index(){
-    render("home/index", array(
+    render("Andreklussen/index", array(
         'planned' => getAllPlanned()
     ));
 }
 function plannen(){
 
-    render("home/plannen", array(
+    render("Andreklussen/plannen", array(
         'horse' => getAllHorses(),
         'rider' => getALlRiders()
     ));
 }
 function edit($id){
-    render("home/edit", array(
+    render("Andreklussen/edit", array(
         'horse' => getAllHorses(),
         'rider' => getALlRiders(),
         'entry' => entry($id)
@@ -25,7 +25,7 @@ function edit($id){
 function delete($id){
     $entry = entry($id);
 
-    render("home/delete", $entry);
+    render("Andreklussen/delete", $entry);
 }
 
 function store()
@@ -64,7 +64,7 @@ function store()
                 header("Location: plannen");
             } else {
                 createEntry($idrider["RiderID"], $idhorse["HorseID"], $starttime, $endtime);
-                header("Location: /manege/home/index");
+                header("Location: /manege/Andreklussen/index");
             }
 
         }
@@ -92,7 +92,8 @@ function updatestore()
             // start is eerder dan eindtijd
 
             foreach (getTimesupdate($idrider["RiderID"], $entryid, "rider") as $timesrider) {
-                if (compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"], $endtime, "start") == false && compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"], $endtime, "end") == false) {
+                if (compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"], $endtime, "start") ==
+                    false && compareTime($starttime, $timesrider["start_time"], $timesrider["end_time"], $endtime, "end") == false) {
                     array_push($checker, true);
                 } else {
                     $_SESSION["error"][] = "Rider is unavailable during your selected times";
@@ -100,7 +101,8 @@ function updatestore()
                 }
             }
             foreach (getTimesupdate($idhorse["HorseID"], $entryid, "horse") as $timeshorse) {
-                if (compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"], $endtime, "start") == false && compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"], $endtime, "end") == false) {
+                if (compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"], $endtime, "start") ==
+                    false && compareTime($starttime, $timeshorse["start_time"], $timeshorse["end_time"], $endtime, "end") == false) {
                     array_push($checker, true);
                 } else {
                     $_SESSION["error"][] = "Horse is unavailable during your selected times";
@@ -112,7 +114,7 @@ function updatestore()
             } else {
                 updateEntry($idrider["RiderID"], $idhorse["HorseID"], $starttime, $endtime, $entryid);
                 $_SESSION["success"][] = "Successfully added a new entry";
-                header("Location: /manege/home/index");
+                header("Location: /manege/Andreklussen/index");
             }
 
         }

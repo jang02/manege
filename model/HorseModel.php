@@ -11,6 +11,20 @@ function getAllHorses(){
 
     return $query->fetchAll();
 }
+function getAllPlanned(){
+    $db = openDatabaseConnection();
+
+    $sql = "SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, HorseName, ras 
+FROM planning 
+  INNER JOIN horses on HorseID = Horse_id 
+ORDER BY start_time ASC";
+    $query = $db->prepare($sql);
+    $query->execute();
+
+    $db = null;
+
+    return $query->fetchAll();
+}
 
 function getHorse($id){
     try {

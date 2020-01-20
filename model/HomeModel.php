@@ -242,7 +242,7 @@ function deleteEntry($id){
     }
     $conn = null;
     $_SESSION["success"][] = "Successvol verwijdered uit de database!";
-    header("Location: /manege/home/index");
+    header("Location: /manege/Andreklussen/index");
 }
 
 
