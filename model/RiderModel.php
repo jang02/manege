@@ -76,7 +76,7 @@ function deleteRider($id){
         echo "Connection failed: " . $e->getMessage();
     }
     $conn = null;
-    header("Location: /manege/rider/index");
+    header("Location: ../index");
 }
 
 function updateRider($id, $name, $adress, $phonenumber){

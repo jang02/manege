@@ -11,21 +11,42 @@ function getAllHorses(){
 
     return $query->fetchAll();
 }
-function getAllPlanned(){
+function getAllPlanned($date){
     $db = openDatabaseConnection();
 
-    $sql = "SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, HorseName, ras 
+    $sql = "SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, HorseName, ras, Date 
 FROM planning 
-  INNER JOIN horses on HorseID = Horse_id 
+  INNER JOIN horses on HorseID = Horse_id
+  WHERE Date=:date 
 ORDER BY start_time ASC";
     $query = $db->prepare($sql);
+    $query->bindParam(":date", $date);
     $query->execute();
 
     $db = null;
 
     return $query->fetchAll();
 }
+function horsePlanned($id, $date){
+    try{
+        $db = openDatabaseConnection();
 
+        $sql = "SELECT TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, Horse_id, Date 
+FROM planning 
+  WHERE Horse_id=:horseid AND Date=:date";
+        $query = $db->prepare($sql);
+        $query->bindParam(":horseid", $id);
+        $query->bindParam(":date", $date);
+        $query->execute();
+
+        $db = null;
+
+        return $query->fetchAll();
+    }
+    catch (PDOException $e){
+        return false;
+    }
+}
 function getHorse($id){
     try {
         $conn=openDatabaseConnection();
@@ -91,7 +112,7 @@ function deleteHorse($id){
         echo "Connection failed: " . $e->getMessage();
     }
     $conn = null;
-    header("Location: /manege/horse/index");
+    header("Location: ../index");
 }
 
 function updateHorse($id, $type, $name, $ras, $schofthoogte){

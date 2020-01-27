@@ -1,4 +1,4 @@
-<h1>Inplannen</h1>
+<h1>Updaten</h1>
 <?php
 
 ?>
@@ -14,9 +14,8 @@
                     if ($_SESSION["olddata"]["rider"] == $rider["RiderName"]) {
                         echo 'selected="selected"';
                     }
-                }
-                else{
-                    if ($entry["RiderName"] == $rider["RiderName"]){
+                } else {
+                    if ($entry["RiderName"] == $rider["RiderName"]) {
                         echo 'selected="selected"';
                     }
                 }
@@ -38,12 +37,11 @@
                     if ($_SESSION["olddata"]["horse"] == $horse["HorseName"]) {
                         echo 'selected="selected"';
                     }
-                }
-                else{
-                    if ($entry["HorseName"] == $horse["HorseName"]){
+                } else {
+                    if ($entry["HorseName"] == $horse["HorseName"]) {
                         echo 'selected="selected"';
                     }
-                }?>><?php echo ($horse["HorseName"]) ?></option>;
+                } ?>><?php echo($horse["HorseName"]) ?></option>;
 
                 <?php
             }
@@ -52,22 +50,31 @@
     </div>
     <div class="form-group">
         <label for="start">Start tijd</label>
-        <input type="time" name="start" class="form-control" id="start" value="<?php if (isset($_SESSION["olddata"]["start"])) {
-            echo $_SESSION["olddata"]["start"];
-        }
-        else{
-            echo $entry["start_time"];
-        }?>">
+        <input type="time" name="start" class="form-control" id="start"
+               value="<?php if (isset($_SESSION["olddata"]["start"])) {
+                   echo $_SESSION["olddata"]["start"];
+               } else {
+                   echo $entry["start_time"];
+               } ?>">
     </div>
     <div class="form-group">
         <label for="end">Eind tijd</label>
-        <input type="time" name="end" class="form-control" id="end" value="<?php if (isset($_SESSION["olddata"]["end"])) {
-            echo $_SESSION["olddata"]["end"];
-        }
-        else{
-            echo $entry["end_time"];
-        }?>">
+        <input type="time" name="end" class="form-control" id="end"
+               value="<?php if (isset($_SESSION["olddata"]["end"])) {
+                   echo $_SESSION["olddata"]["end"];
+               } else {
+                   echo $entry["end_time"];
+               } ?>">
         <input class="hidden" name="entryid" value="<?php echo $entry["id"]; ?>">
+    </div>
+    <div class="form-group">
+        <label for="date">Datum</label>
+        <input type="date" name="date" class="form-control" id="date"
+               value="<?php if (isset($_SESSION["olddata"]["date"])) {
+                   echo $_SESSION["olddata"]["date"];
+               } else {
+                   echo $entry["date"];
+               } ?>">
     </div>
     <input class="btn btn-primary" type="submit">
 </form>

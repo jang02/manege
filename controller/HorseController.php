@@ -12,10 +12,30 @@ function create()
     render("horse/create");
 }
 function availability(){
-    $planned = getAllPlanned();
+    $horses = getAllHorses();
+    $date = null;
+    $horsecheck = array(
 
+    );
+    if(isset($_POST["date"])){
+        $date = date($_POST["date"]);
+    }
+    else{
+        $date = date('Y/m/d');
+    }
+    foreach($horses as $horse){
+        if(horsePlanned($horse["HorseID"], $date)){
+            echo "true";
+            array_push($horsecheck,  "ja");
+        }
+        else{
+            echo "false";
+            array_push($horsecheck, "nee");
+        }
+    }
     render("horse/availability", array(
-        'horse' => $planned
+        'boolean' => $horsecheck,
+        'horse' => $horses
     ));
 
 }

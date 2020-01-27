@@ -1,17 +1,24 @@
 <?php
 
-function getAllPlanned(){
-    $db = openDatabaseConnection();
+function getAllPlanned($date){
+    try{
+        $db = openDatabaseConnection();
 
-    $sql = "SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, RiderName, HorseName 
+        $sql = "SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, RiderName, HorseName, Date 
 FROM planning 
   INNER JOIN riders on RiderID = Rider_id 
   INNER JOIN horses on HorseID = Horse_id 
+WHERE Date=:date
 ORDER BY start_time ASC";
-    $query = $db->prepare($sql);
-    $query->execute();
+        $query = $db->prepare($sql);
+        $query->bindParam(":date", $date);
+        $query->execute();
 
-    $db = null;
+        $db = null;
+    }
+    catch (PDOException $e){
+        echo $e;
+    }
 
     return $query->fetchAll();
 }
@@ -176,7 +183,7 @@ function compareTime($time1, $time2, $time3, $time4, $type){
 function entry($id){
     $conn = openDatabaseConnection();
 
-    $stmt = $conn->prepare("SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, RiderName, HorseName 
+    $stmt = $conn->prepare("SELECT id, TIME_FORMAT(start_time, '%H:%i') start_time, TIME_FORMAT(end_time, '%H:%i') end_time, RiderName, HorseName, Date 
 FROM planning 
   INNER JOIN riders on RiderID = Rider_id 
   INNER JOIN horses on HorseID = Horse_id 
@@ -187,15 +194,16 @@ WHERE id = :id");
     $conn = null;
 }
 
-function createEntry($rider, $horse, $start, $end){
+function createEntry($rider, $horse, $start, $end, $date){
     try {
         $conn=openDatabaseConnection();
 
-        $stmt = $conn->prepare("INSERT INTO `planning` (id, start_time, end_time, Horse_id, Rider_id) VALUES (NULL, :start, :end, :horse, :rider)");
+        $stmt = $conn->prepare("INSERT INTO `planning` (id, start_time, end_time, Horse_id, Rider_id, Date) VALUES (NULL, :start, :end, :horse, :rider, :date)");
         $stmt->bindParam(":start", $start);
         $stmt->bindParam(":end", $end);
         $stmt->bindParam(":horse", $horse);
         $stmt->bindParam(":rider", $rider);
+        $stmt->bindParam(":date", $date);
         $stmt->execute();
 
     }
@@ -206,15 +214,16 @@ function createEntry($rider, $horse, $start, $end){
 
     $conn = null;
 }
-function updateEntry($rider, $horse, $start, $end, $id){
+function updateEntry($rider, $horse, $start, $end, $id, $date){
     try {
         $conn=openDatabaseConnection();
 
-        $stmt = $conn->prepare("UPDATE planning SET `start_time`=:start, `end_time`=:end, `Horse_id`=:horseid, `Rider_id`=:riderid WHERE `id`=:id");
+        $stmt = $conn->prepare("UPDATE planning SET `start_time`=:start, `end_time`=:end, `Horse_id`=:horseid, `Rider_id`=:riderid, `Date`=:date WHERE `id`=:id");
         $stmt->bindParam(":start", $start);
         $stmt->bindParam(":end", $end);
         $stmt->bindParam(":horseid", $horse);
         $stmt->bindParam(":riderid", $rider);
+        $stmt->bindParam(":date", $date);
         $stmt->bindParam(":id", $id);
         $stmt->execute();
 
@@ -242,7 +251,7 @@ function deleteEntry($id){
     }
     $conn = null;
     $_SESSION["success"][] = "Successvol verwijdered uit de database!";
-    header("Location: /manege/Andreklussen/index");
+    header("Location: ../index");
 }
 
 

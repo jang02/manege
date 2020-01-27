@@ -45,3 +45,10 @@ a{
 .hidden{
     display: none;
 }
+form, form > div, div#dateWrapper{
+    display: inline;
+}
+div#dateWrapper > p{
+    display: inline;
+    margin: 0px;
+}
